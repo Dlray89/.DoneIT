@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route, Router} from 'react-router-dom'
-import Projects from './components/projects'
+import MainCard from './components/MainCard'
 import CreateProject from './components/create_projects'
 import { newHistory } from './utils/history'
 
@@ -11,7 +11,7 @@ function App() {
         <Router history={newHistory}>
             <div>
                 <Switch>
-                    <Route exact path='/' render={() => <Projects />} />
+                    <Route exact path='/' render={() => <MainCard />} />
 
                     <Route path='/creating_project' render={() => <CreateProject />}  />
                 </Switch>

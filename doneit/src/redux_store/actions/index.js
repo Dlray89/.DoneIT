@@ -47,16 +47,30 @@ export const create_project = project => {
 }
 
 export const delete_project = id => {
-    const remove_project = axios.delete(`${url}/:id`, {
-        date: { id }
+    const remove_project = axios.delete(`${url}/api/projects/${id}`, {
+        data: { id }
     })
     return dispatch => {
         dispatch({type: DELETING_PROJECT })
         remove_project.then(({ data }) => {
             dispatch({type: DELETING_PROJECT, payload: data})
             dispatch({type: SINGLE_PROJECT, payload: {} })
+            
         })
 
+        .catch(err => {
+            dispatch({type: ERROR, payload: err})
+        })
+    }
+}
+
+export const update_project = (id, project) => {
+    const update_project = axios.put(`${url}/api/projects/${id}`, project)
+    return dispatch => {
+        dispatch({type: UPDATING_PROJECT})
+        update_project.then(({ data }) => {
+            dispatch({type: UPDATE_PROJECT, payload: data })
+        })
         .catch(err => {
             dispatch({type: ERROR, payload: err})
         })
@@ -69,7 +83,7 @@ export const toggle_show_update = () => {
     }
 }
 
-export const update_Single_Project = () => {
+export const update_Single_Project = project => {
     return {
         type: SINGLE_PROJECT,
         payload: project
