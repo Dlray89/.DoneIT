@@ -8,6 +8,15 @@ export const ERROR = 'ERROR'
 export const CREATE_PROJECT = "CREATE_PROJECT"
 export const CREATING_PROJECT = 'CREATING_PROJECT'
 
+export const DELETE_PROJECT = 'DELETE_PROJECT'
+export const DELETING_PROJECT = 'DELETING_PROJECT'
+
+export const UPDATING_PROJECT = 'UPDATING_PROJECT'
+export const UPDATE_PROJECT = 'UPDATE_PROJECT'
+
+export const SINGLE_PROJECT = 'SINGLE_PROJECT'
+export const TOGGLE_UPDATE_PROJECT = 'TOGGLE_UPDATE_PROJECT'
+
 
 const url = 'https://prohash-backend.herokuapp.com'
 
@@ -34,5 +43,35 @@ export const create_project = project => {
         .catch(err => {
             dispatch({type: ERROR, payload:err})
         })
+    }
+}
+
+export const delete_project = id => {
+    const remove_project = axios.delete(`${url}/:id`, {
+        date: { id }
+    })
+    return dispatch => {
+        dispatch({type: DELETING_PROJECT })
+        remove_project.then(({ data }) => {
+            dispatch({type: DELETING_PROJECT, payload: data})
+            dispatch({type: SINGLE_PROJECT, payload: {} })
+        })
+
+        .catch(err => {
+            dispatch({type: ERROR, payload: err})
+        })
+    }
+}
+
+export const toggle_show_update = () => {
+    return {
+        type: TOGGLE_UPDATE_PROJECT
+    }
+}
+
+export const update_Single_Project = () => {
+    return {
+        type: SINGLE_PROJECT,
+        payload: project
     }
 }
