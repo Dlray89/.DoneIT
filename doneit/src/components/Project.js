@@ -5,6 +5,19 @@ import { delete_project, update_Single_Project, toggle_show_update } from '../re
 
 class Project extends Component {
 
+    handleDelete = () => {
+        const { id } = this.props.project_selected
+        this.props.delete_project(id)
+        }
+
+        handleShowProject = (project) => {
+            this.props.update_Single_Project(project)
+        }
+
+        toggleShowUpdate = () => {
+            this.props.toggleShowUpdate()
+        }
+
     render() {
         return(
             <div>
